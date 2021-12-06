@@ -1,6 +1,8 @@
 #include <vector>
+#include <list>
 #include <map>
 #include <iostream>
+#include <algorithm>
 class Solution
 {
 public:
@@ -39,4 +41,46 @@ static int majorityElement(std::vector<int>& nums){
 
     return 0;
 }
+
+static std::vector<std::vector<int>> threeSum(std::vector<int>& sums){
+
+    std::vector<std::vector<int>> result;
+    std::sort(sums.begin(),sums.end());
+    for (auto &&i : sums)
+    {
+            std::cout<<i<<"  ";
+
+    }
+    int lo=0;
+    int ho=sums.size();
+    std::cout<<"==============="<<std::endl;
+    for(int lo=0;lo<ho;lo++){
+        if (lo==0 || (sums[lo]!=sums[lo-1]))
+        {        
+            int lothird=ho-1; 
+            for(int losecond=lo+1;losecond<ho;losecond++){
+                if (losecond==lo+1||sums[losecond]!=sums[losecond-1]){
+
+                    while (losecond<lothird &&sums[lo]+ sums[losecond]+sums[lothird]>0)
+                    {
+                        lothird--;
+                    }
+
+                    if (losecond==lothird)
+                    {
+                        break;
+                    }
+                    
+                    if(sums[lo]+ sums[losecond]+sums[lothird]==0){
+                       result.push_back({sums[lo],sums[losecond],sums[lothird]});
+                    }
+                }
+
+            }
+        }
+    }
+
+    return result; 
+}
+
 };
