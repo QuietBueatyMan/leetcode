@@ -1,6 +1,6 @@
 
-#include "day1/solution.hpp"
-#include "day2/solution.hpp"
+#include "solution.hpp"
+#include "solution.hpp"
 #include <vector>
 #include <iostream>
 
@@ -15,7 +15,7 @@ int main()
     // auto result=Day1::Solution::threeSum(tmp);
     std::vector<std::vector<int>> tmp = {{1,4},{3,5},{3,7},{9,10},{15,18},{16,20}};
     // std::vector<std::vector<int>> tmp = {{1,4},{2,3}};
-    auto result = Day2::Solution::merge(tmp); 
+    auto result = Solutions::Solution::merge(tmp); 
     for (auto item : result)
     {
         std::cout << "["<<item[0]<<","<<item[1]<<"]" << "  ";
