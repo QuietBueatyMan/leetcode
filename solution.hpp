@@ -4,6 +4,8 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
+#include <sstream>
+#include <math.h>
 
 namespace Solutions
 {
@@ -397,5 +399,51 @@ namespace Solutions
 
             return 0;
         }
-        };
+        /*
+        给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+        如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
+        */
+        static int reverse(int x)
+        {
+            std::string maxValue = "2147483648";
+
+            std::stringstream stream;
+            std::string value_str;
+            int32_t result;
+            stream << x;
+            stream >> value_str;
+            stream.clear();
+
+            if (x < 0)
+                value_str = value_str.substr(1);
+
+            for (size_t index = 0; index <= (value_str.size() - 1) / 2; index++)
+            {
+                char tmp = value_str[index];
+                size_t target_index = value_str.size() - 1 - index;
+
+                value_str[index] = value_str[target_index];
+                value_str[target_index] = tmp;
+            }
+            if (value_str.length() == 10)
+            {
+                for (size_t index = 0; index < value_str.size(); index++)
+                {
+                    if (value_str[index] > maxValue[index])
+                    {
+                        return 0;
+                    }
+                    else if (value_str[index] < maxValue[index])
+                        break;
+                }
+            }
+
+            stream << value_str;
+            stream >> result;
+            if (x < 0)
+                result = -result;
+
+            return result;
+        }
+    };
 } // namespace Solutions
