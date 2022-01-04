@@ -403,47 +403,63 @@ namespace Solutions
         给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
         如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
         */
-        static int reverse(int x)
+        static int32_t reverse(int32_t x)
         {
-            std::string maxValue = "2147483648";
+            // std::string maxValue = "2147483648";
 
-            std::stringstream stream;
-            std::string value_str;
-            int32_t result;
-            stream << x;
-            stream >> value_str;
-            stream.clear();
+            // std::stringstream stream;
+            // std::string value_str;
+            // int32_t result;
+            // stream << x;
+            // stream >> value_str;
+            // stream.clear();
 
-            if (x < 0)
-                value_str = value_str.substr(1);
+            // if (x < 0)
+            //     value_str = value_str.substr(1);
 
-            for (size_t index = 0; index <= (value_str.size() - 1) / 2; index++)
+            // for (size_t index = 0; index <= (value_str.size() - 1) / 2; index++)
+            // {
+            //     char tmp = value_str[index];
+            //     size_t target_index = value_str.size() - 1 - index;
+
+            //     value_str[index] = value_str[target_index];
+            //     value_str[target_index] = tmp;
+            // }
+            // if (value_str.length() == 10)
+            // {
+            //     for (size_t index = 0; index < value_str.size(); index++)
+            //     {
+            //         if (value_str[index] > maxValue[index])
+            //         {
+            //             return 0;
+            //         }
+            //         else if (value_str[index] < maxValue[index])
+            //             break;
+            //     }
+            // }
+
+            // stream << value_str;
+            // stream >> result;
+            // if (x < 0)
+            //     result = -result;
+
+            // return result;
+            
+            int32_t rev = 0;
+
+            while (x != 0)
             {
-                char tmp = value_str[index];
-                size_t target_index = value_str.size() - 1 - index;
+                int32_t digit = x % 10;
+                x = x / 10;
 
-                value_str[index] = value_str[target_index];
-                value_str[target_index] = tmp;
-            }
-            if (value_str.length() == 10)
-            {
-                for (size_t index = 0; index < value_str.size(); index++)
+                if (x == 0 && (rev > 214748364 || rev < -214748364))
                 {
-                    if (value_str[index] > maxValue[index])
-                    {
-                        return 0;
-                    }
-                    else if (value_str[index] < maxValue[index])
-                        break;
+                    return 0;
                 }
+                rev = rev * 10 + digit;
             }
 
-            stream << value_str;
-            stream >> result;
-            if (x < 0)
-                result = -result;
-
-            return result;
+            return rev;
         }
     };
 } // namespace Solutions
