@@ -530,5 +530,30 @@ namespace Solutions
 
             return result;
         }
+
+        /*
+        给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false .
+        */
+        static bool isPalindrome(int x)
+        {
+            if (x < 0)
+                return false;
+            if (x == 0)
+                return true;
+            if (x % 10 == 0)
+                return false;
+
+            int reverse_value = 0;
+
+            while (x > reverse_value)
+            {
+                /* code */
+                int dight = x % 10;
+                reverse_value = reverse_value * 10 + dight;
+                x = x / 10;
+            }
+
+            return reverse_value == x || reverse_value / 10 == x;
+        }
     };
 } // namespace Solutions
