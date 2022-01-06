@@ -37,6 +37,7 @@ namespace Solutions
 
             return {-1, -1};
         }
+
         /*
         给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
         请你将两个数相加，并以相同形式返回一个表示和的链表。
@@ -106,6 +107,7 @@ namespace Solutions
 
             return maxlength;
         }
+
         /*
         给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
         算法的时间复杂度应该为 O(log (m+n)) 。
@@ -152,6 +154,7 @@ namespace Solutions
                 return (GetNum(nums1, nums2, length / 2) + GetNum(nums1, nums2, length / 2 + 1)) / 2.0;
             }
         }
+
         /*给你一个字符串 s，找到 s 中最长的回文子串。*/
         static std::string longestPalindrome(std::string s)
         {
@@ -204,6 +207,7 @@ namespace Solutions
             return s.substr(result_index, maxlength);
             // return s.substr(maxlength_start, maxlength);
         }
+
         /*将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列*/
         enum class UpOrDown
         {
@@ -300,6 +304,7 @@ namespace Solutions
 
             return result;
         }
+
         /*
         以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。
         请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
@@ -326,6 +331,7 @@ namespace Solutions
 
             return merge;
         }
+
         /*
         给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
         此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
@@ -358,6 +364,7 @@ namespace Solutions
 
             return nums;
         }
+
         /*给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。*/
         static int singleNumber(std::vector<int> &nums)
         {
@@ -369,6 +376,7 @@ namespace Solutions
 
             return result;
         }
+
         /*
         给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
         你可以假设数组是非空的，并且给定的数组总是存在多数元素。
@@ -399,6 +407,7 @@ namespace Solutions
 
             return 0;
         }
+
         /*
         给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
         如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
@@ -555,5 +564,47 @@ namespace Solutions
 
             return reverse_value == x || reverse_value / 10 == x;
         }
+
+        /*
+        给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+        '.' 匹配任意单个字符
+        '*' 匹配零个或多个前面的那一个元素
+        所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+        */
+        static bool isMatch(std::string s, std::string p)
+        {
+            std::vector<std::vector<int>> status = {s.length() + 1, std::vector<int>(p.length() + 1, 0)};
+
+            status[0][0] = true;
+
+            auto matchs = [&](int i, int j) {
+                if (i == 0)
+                    return false;
+                if (p[j - 1] == '.')
+                    return true;
+                return (s[i - 1] == p[j - 1]);
+            };
+
+            for (int index_s = 0; index_s < s.length() + 1; index_s++)
+            {
+                for (int index_p = 1; index_p < p.length() + 1; index_p++)
+                {
+                    if (p[index_p - 1] != '*')
+                    {
+                        if (matchs(index_s, index_p))
+                            status[index_s][index_p] |= status[index_s - 1][index_p - 1];
+                    }
+                    else
+                    {
+                        status[index_s][index_p] |= status[index_s][index_p - 2];
+                        if (matchs(index_s, index_p - 1))
+                            status[index_s][index_p] |= status[index_s - 1][index_p];
+                    }
+                }
+            }
+
+            return status[s.length()][p.length()];
+        }
     };
+
 } // namespace Solutions
