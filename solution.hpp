@@ -605,6 +605,55 @@ namespace Solutions
 
             return status[s.length()][p.length()];
         }
+
+        /*
+        给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+        在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。
+        找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+        */
+        static int maxArea(std::vector<int> &height)
+        {
+            // int start_index = 0;
+            // int end_index = height.size() - 1;
+            // int result = 0;
+
+            // for (int index = 0; index < height.size(); index++)
+            // {
+            //     if (index != 0 && height[index] <= height[start_index])
+            //         continue;
+            //     for (int tmp_index = end_index; tmp_index > index; tmp_index--)
+            //     {
+            //         int tmpresult = std::min(height[index], height[tmp_index]) * (tmp_index - index);
+            //         if (tmpresult > result)
+            //         {
+            //             start_index = index;
+            //             end_index = tmp_index;
+            //             result = tmpresult;
+            //         }
+            //     }
+            // }
+
+            // return result;
+            int result = 0;
+            std::vector<int>::iterator start_index=height.begin();
+            std::vector<int>::iterator end_index=height.end()-1;
+            while (start_index != end_index)
+            {
+                /* code */
+                result = std::max<int>(result, std::min(*start_index, *end_index) * (end_index - start_index));
+
+                if (*start_index < *end_index)
+                {
+                    start_index++;
+                }
+                else
+                {
+                    end_index--;
+                }
+            }
+
+            return result;
+        }
     };
 
 } // namespace Solutions
