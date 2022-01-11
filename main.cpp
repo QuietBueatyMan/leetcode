@@ -15,7 +15,7 @@ int main()
     // std::vector<std::vector<int>> tmp = {{1,4},{3,5},{3,7},{9,10},{15,18},{16,20}};
     // std::vector<std::vector<int>> tmp = {{1,4},{2,3}};
     // std::vector<int> tmp = {1,3,2,5,25,24,5};
-    auto result = Solutions::Solution::intToRoman(4);
+    auto result = Solutions::Solution::romanToInt("XXIV");
     std::cout << result << std::endl;
     // for (auto item : result)
     // {
