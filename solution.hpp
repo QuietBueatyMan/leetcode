@@ -745,6 +745,40 @@ namespace Solutions
 
             return result;
         }
+
+        /*
+        编写一个函数来查找字符串数组中的最长公共前缀。
+        如果不存在公共前缀，返回空字符串 ""。
+        */
+        static std::string longestCommonPrefix(std::vector<std::string> &strs)
+        {
+            std::string commonPrefix = "";
+            std::string result = "";
+
+            for (int start_index = 0; start_index < strs.size(); start_index++)
+            {
+                if (start_index == 0)
+                {
+                    commonPrefix = strs[start_index];
+                    continue;
+                }
+
+                int tmp_index = 0;
+                int length = 0;
+
+                std::string str = strs[start_index];
+
+                while (commonPrefix[tmp_index] && str[tmp_index] && commonPrefix[tmp_index] == str[tmp_index])
+                {
+                    /* code */
+                    tmp_index++;
+                    length++;
+                }
+                commonPrefix = length > 0 ? commonPrefix.substr(0, length) : "";
+            }
+
+            return commonPrefix;
+        }
     };
 
 } // namespace Solutions
