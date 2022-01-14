@@ -779,6 +779,59 @@ namespace Solutions
 
             return commonPrefix;
         }
-    };
+
+        /*
+        给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+        返回这三个数的和。
+        假定每组输入只存在恰好一个解。
+        */
+        static int threeSumClosest(std::vector<int> &nums, int target)
+        {
+            std::sort(nums.begin(), nums.end());
+            size_t index_p3 = nums.size() - 1;
+
+            int closeestvalue = closeestvalue = nums[index_p3] + nums[1] + nums[0];
+
+            for (size_t index_p1 = 0; index_p1 < nums.size(); index_p1++)
+            {
+                if (index_p1 == 0)
+
+                    /* code */
+                    for (size_t index_p2 = index_p1 + 1; index_p2 < index_p3; index_p2++)
+                    {
+                        /* code */
+                        int temp_index = index_p3;
+                        while (temp_index > index_p2)
+                        {
+                            int sumvalue = nums[temp_index] + nums[index_p2] + nums[index_p1];
+
+                            if (sumvalue == target)
+                            {
+                                return target;
+                            }
+                            else if (sumvalue < target)
+                            {
+                                if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
+                                {
+                                    closeestvalue = sumvalue;
+                                    index_p3 = temp_index;
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
+                                {
+                                    closeestvalue = sumvalue;
+                                }
+                                temp_index--;
+                            }
+                        }
+                    }
+            }
+            return closeestvalue;
+        }
+
+    }; // namespace Solutions
 
 } // namespace Solutions
