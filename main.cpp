@@ -16,11 +16,11 @@ int main()
     // std::vector<std::vector<int>> tmp = {{1,4},{2,3}};
     // std::vector<int> tmp = {1,3,2,5,25,24,5};
     // std::vector<std::string> strs={"flower","flow","flight"};
-    std::vector<int> tmp = {1,2,5,10,11};
-    auto result = Solutions::Solution::threeSumClosest(tmp, 12);
-    std::cout << result << std::endl;
-    // for (auto item : result)
-    // {
-    //     std::cout << "["<<item[0]<<","<<item[1]<<"]" << "  ";
-    // }
+    // std::vector<int> tmp = {1,2,5,10,11};
+    auto result = Solutions::Solution::letterCombinations("23");
+    // std::cout << result << std::endl;
+    for (auto item : result)
+    {
+        std::cout << item << "  ";
+    }
 }

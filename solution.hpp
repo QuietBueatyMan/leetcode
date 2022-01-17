@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <sstream>
 #include <math.h>
+#include <string>
 
 namespace Solutions
 {
@@ -794,44 +795,84 @@ namespace Solutions
 
             for (size_t index_p1 = 0; index_p1 < nums.size(); index_p1++)
             {
-                if (index_p1 == 0)
 
+                /* code */
+                for (size_t index_p2 = index_p1 + 1; index_p2 < index_p3; index_p2++)
+                {
                     /* code */
-                    for (size_t index_p2 = index_p1 + 1; index_p2 < index_p3; index_p2++)
+                    int temp_index = index_p3;
+                    while (temp_index > index_p2)
                     {
-                        /* code */
-                        int temp_index = index_p3;
-                        while (temp_index > index_p2)
-                        {
-                            int sumvalue = nums[temp_index] + nums[index_p2] + nums[index_p1];
+                        int sumvalue = nums[temp_index] + nums[index_p2] + nums[index_p1];
 
-                            if (sumvalue == target)
+                        if (sumvalue == target)
+                        {
+                            return target;
+                        }
+                        else if (sumvalue < target)
+                        {
+                            if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
                             {
-                                return target;
+                                closeestvalue = sumvalue;
+                                index_p3 = temp_index;
                             }
-                            else if (sumvalue < target)
+                            break;
+                        }
+                        else
+                        {
+                            if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
                             {
-                                if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
-                                {
-                                    closeestvalue = sumvalue;
-                                    index_p3 = temp_index;
-                                }
-                                break;
+                                closeestvalue = sumvalue;
                             }
-                            else
-                            {
-                                if (std::abs(sumvalue - target) < std::abs(closeestvalue - target))
-                                {
-                                    closeestvalue = sumvalue;
-                                }
-                                temp_index--;
-                            }
+                            temp_index--;
                         }
                     }
+                }
             }
             return closeestvalue;
         }
 
-    }; // namespace Solutions
+        /*
+        给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+st        给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+        */
+        static std::vector<std::string> letterCombinations(std::string digits)
+        {
+            std::map<char, std::vector<char>> digitmap = {{'2', std::vector<char>{'a', 'b', 'c'}}, {'3', std::vector<char>{'d', 'e', 'f'}}, {'4', std::vector<char>{'g', 'h', 'i'}}, {'5', std::vector<char>{'j', 'k', 'l'}}, {'6', std::vector<char>{'m', 'n', 'o'}}, {'7', std::vector<char>{'p', 'q', 'r', 's'}}, {'8', std::vector<char>{'t', 'u', 'v'}}, {'9', std::vector<char>{'w', 'x', 'y', 'z'}}};
+            std::vector<std::string> result;
+
+            for (auto &&digit : digits)
+            {
+                auto array_chars = digitmap[digit];
+                if (result.size() == 0)
+                {
+                    for (auto item : array_chars)
+                    {
+                        std::string tmpstr;
+                        tmpstr.push_back(item);
+                        result.push_back(tmpstr);
+                    }
+                }
+                else
+                {
+                    std::vector<std::string> tmp_result;
+                    for (auto &&str_item : result)
+                    {
+                        for (auto &&item : array_chars)
+                        {
+
+                            std::string tmpstr=str_item;
+                            tmpstr.push_back(item);
+                            tmp_result.push_back(tmpstr);
+                        }
+                    }
+
+                    result = tmp_result;
+                }
+            }
+
+            return result;
+        }
+    };
 
 } // namespace Solutions
