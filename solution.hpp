@@ -861,7 +861,7 @@ st        给出数字到字母的映射如下（与电话按键相同）。注�
                         for (auto &&item : array_chars)
                         {
 
-                            std::string tmpstr=str_item;
+                            std::string tmpstr = str_item;
                             tmpstr.push_back(item);
                             tmp_result.push_back(tmpstr);
                         }
@@ -873,6 +873,72 @@ st        给出数字到字母的映射如下（与电话按键相同）。注�
 
             return result;
         }
-    };
 
+        /*
+        给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。
+        请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] 
+        （若两个四元组元素一一对应，则认为两个四元组重复）a b c d 不重复
+        */
+        static std::vector<std::vector<int>> fourSum(std::vector<int> &nums, int target)
+        {
+            std::vector<std::vector<int>> result;
+            if ( nums.size() < 4)
+                return result;
+
+            std::sort(nums.begin(), nums.end());
+
+            int index_4 = nums.size() - 1;
+
+            for (size_t index_1 = 0; index_1 < nums.size() - 3; index_1++)
+            {
+                if (index_1 > 0 && nums[index_1] == nums[index_1 - 1])
+                {
+                    continue;
+                }
+
+                for (size_t index_2 = index_1 + 1; index_2 < nums.size() - 2; index_2++)
+                {
+                    if (index_2 > index_1 + 1 && nums[index_2] == nums[index_2 - 1])
+                    {
+                        continue;
+                    }
+
+                    int start_index = index_2 + 1;
+                    int end_index = nums.size() - 1;
+
+                    while (start_index < end_index)
+                    {
+                        long sumvalue = (long)nums[index_1] + nums[index_2] + nums[start_index] + nums[end_index];
+
+                        if (sumvalue < target)
+                        {
+                            start_index++;
+                        }
+                        else if (sumvalue == target)
+                        {
+                            /* code */
+                            result.push_back({nums[index_1], nums[index_2], nums[start_index], nums[end_index]});
+                            while (start_index < end_index && nums[end_index - 1] == nums[end_index])
+                            {
+                                /* code */
+                                end_index--;
+                            }
+                            end_index--;
+                            while (start_index < end_index && nums[start_index + 1] == nums[start_index])
+                            {
+                                /* code */
+                                start_index++;
+                            }
+                            start_index++;
+                        }
+                        else
+                        {
+                            end_index--;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+    };
 } // namespace Solutions
