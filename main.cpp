@@ -18,19 +18,19 @@ int main()
     // std::vector<std::string> strs={"flower","flow","flight"};
     std::vector<int> tmp = {1000000000,1000000000,1000000000,1000000000};
     
-    auto result = Solutions::Solution::fourSum(tmp, 0);
+    // auto result = Solutions::Solution::removeNthFromEnd(tmp, 0);
     // std::cout << result << std::endl;
     // for (auto item : result)
     // {
     //     std::cout << item << "  ";
     // }
-    for (auto &&i : result)
-    {
-        std::cout << "[";
-        for (auto &&k : i)
-        {
-            std::cout << k << ",";
-        }
-        std::cout << "]";
-    }
+    // for (auto &&i : result)
+    // {
+    //     std::cout << "[";
+    //     for (auto &&k : i)
+    //     {
+    //         std::cout << k << ",";
+    //     }
+    //     std::cout << "]";
+    // }
 }

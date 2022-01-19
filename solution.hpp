@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 #include <sstream>
 #include <math.h>
 #include <string>
@@ -834,7 +835,7 @@ namespace Solutions
 
         /*
         给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
-st        给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+        给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
         */
         static std::vector<std::string> letterCombinations(std::string digits)
         {
@@ -882,7 +883,7 @@ st        给出数字到字母的映射如下（与电话按键相同）。注�
         static std::vector<std::vector<int>> fourSum(std::vector<int> &nums, int target)
         {
             std::vector<std::vector<int>> result;
-            if ( nums.size() < 4)
+            if (nums.size() < 4)
                 return result;
 
             std::sort(nums.begin(), nums.end());
@@ -939,6 +940,42 @@ st        给出数字到字母的映射如下（与电话按键相同）。注�
                 }
             }
             return result;
+        }
+
+        /*
+        给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+        */
+        static ListNode *removeNthFromEnd(ListNode *head, int n)
+        {
+            std::unordered_map<int, ListNode *> listmap;
+            ListNode *nownode = head;
+            int index = 0;
+            int count = 0;
+            while (nownode)
+            {
+                listmap[index] = nownode;
+                count++;
+                nownode = nownode->next;
+                index++;
+            }
+            if (count < n)
+                return head;
+            else
+            {
+                /* code */
+                ListNode *targetNode = listmap[count - n];
+                if (targetNode != head)
+                {
+                    ListNode *frontNode = listmap[count - n - 1];
+                    frontNode->next = targetNode->next;
+                }
+                else
+                {
+                    head = head->next;
+                }
+                delete targetNode;
+            }
+            return head;
         }
     };
 } // namespace Solutions
