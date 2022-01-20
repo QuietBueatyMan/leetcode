@@ -16,8 +16,8 @@ int main()
     // std::vector<std::vector<int>> tmp = {{1,4},{2,3}};
     // std::vector<int> tmp = {1,3,2,5,25,24,5};
     // std::vector<std::string> strs={"flower","flow","flight"};
-    std::vector<int> tmp = {1000000000,1000000000,1000000000,1000000000};
-    
+    // std::vector<int> tmp = {1000000000,1000000000,1000000000,1000000000};
+
     // auto result = Solutions::Solution::removeNthFromEnd(tmp, 0);
     // std::cout << result << std::endl;
     // for (auto item : result)
@@ -33,4 +33,8 @@ int main()
     //     }
     //     std::cout << "]";
     // }
+
+    auto result = Solutions::Solution::isValid("[{()}");
+
+    std::cout << result;
 }

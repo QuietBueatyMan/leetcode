@@ -8,6 +8,7 @@
 #include <sstream>
 #include <math.h>
 #include <string>
+#include <stack>
 
 namespace Solutions
 {
@@ -976,6 +977,50 @@ namespace Solutions
                 delete targetNode;
             }
             return head;
+        }
+
+        /*
+        给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+        */
+        static bool isValid(std::string s)
+        {
+            std::stack<char> stackcontainer;
+            for (auto &&c : s)
+            {
+                switch (c)
+                {
+                case '(':
+                case '{':
+                case '[':
+                    stackcontainer.push(c);
+                    continue;
+                case ')':
+                case '}':
+                case ']':
+                    if (stackcontainer.size() == 0)
+                        return false;
+                    char target = stackcontainer.top();
+                    if (target == '(' && c != ')')
+                    {
+                        return false;
+                    }
+                    else if (target == '{' && c != '}')
+                    {
+                        return false;
+                    }
+                    else if (target == '[' && c != ']')
+                    {
+                        return false;
+                    }
+                    stackcontainer.pop();
+                    continue;
+                }
+            }
+
+            if (stackcontainer.size() == 0)
+                return true;
+            else
+                return false;
         }
     };
 } // namespace Solutions
