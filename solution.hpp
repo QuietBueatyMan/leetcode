@@ -1022,5 +1022,175 @@ namespace Solutions
             else
                 return false;
         }
+
+        static ListNode *createList(std::vector<int> aray)
+        {
+            ListNode *dumpHead = new ListNode();
+            ListNode *nownode = dumpHead;
+            for (auto &&i : aray)
+            {
+                nownode->next = new ListNode(i);
+                nownode = nownode->next;
+            }
+            auto result = dumpHead->next;
+            delete dumpHead;
+            return result;
+        }
+
+        static void showList(ListNode *head)
+        {
+            while (head)
+            {
+                std::cout << head->val << " ";
+                head = head->next;
+            }
+            std::cout << std::endl;
+        }
+
+        /*
+        将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+        */
+        static ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
+        {
+            ListNode *dumpend = new ListNode(101);
+            ListNode *dumphead = new ListNode(-101, list1);
+            ListNode *tmpnode = dumphead;
+
+            while (tmpnode)
+            {
+                if (!tmpnode->next)
+                {
+                    tmpnode->next = dumpend;
+                    break;
+                }
+                tmpnode = tmpnode->next;
+            }
+
+            ListNode *nownode = dumphead;
+
+            while (list2)
+            {
+
+                if (nownode && list2->val >= nownode->next->val)
+                {
+                    nownode = nownode->next;
+                }
+                else if (nownode && list2->val < nownode->next->val)
+                {
+                    ListNode *takenode = list2;
+                    list2 = list2->next;
+                    takenode->next = nownode->next;
+                    nownode->next = takenode;
+                    nownode = takenode;
+                }
+            }
+
+            tmpnode = dumphead;
+
+            while (tmpnode)
+            {
+                if (tmpnode->next == dumpend)
+                {
+                    tmpnode->next = nullptr;
+                    break;
+                }
+                tmpnode = tmpnode->next;
+            }
+            ListNode *result = dumphead->next;
+
+            delete dumphead;
+            return result;
+        }
+
+        /*
+        
+        数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+        
+        */
+        static void dfs(std::string curstr, int open, int close, std::vector<std::string> &res)
+        {
+            if (open == 0 && close == 0)
+            {
+                res.push_back(curstr);
+                return;
+            }
+
+            if (open > close)
+                return;
+
+            if (open > 0)
+            {
+                curstr.push_back('(');
+                dfs(curstr, open - 1, close, res);
+                curstr.pop_back(); //hui shuo
+            }
+
+            if (close > 0)
+            {
+                curstr.push_back(')');
+                dfs(curstr, open, close - 1, res);
+            }
+        }
+
+        static std::vector<std::string> generateParenthesis(int n)
+        {
+            std::vector<std::string> result;
+
+            dfs("", n, n, result);
+
+            return result;
+        }
+        static bool place_valid(size_t row, size_t column, std::vector<std::vector<size_t>> &chessbord)
+        {
+            size_t row_index = row - 1;
+            size_t column_index = column - 1;
+            for (size_t i = 0; i < row_index; i++)
+            {
+                /* code */
+                if (chessbord[i][column_index] == 1 || chessbord[row_index-1][column_index-1]==1 || chessbord[row_index-1][column_index+1]==1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        static void brtarce(size_t row, const size_t &rows, std::vector<std::vector<size_t>> &chessbord)
+        {
+            int colums = rows;
+            if (row == rows+1)
+            {
+                for (size_t tmprow = 0; tmprow < rows; tmprow++)
+                {
+                    for (size_t tmpcolumn = 0; tmpcolumn < colums; tmpcolumn++)
+                    {
+                        if (chessbord[tmprow][tmpcolumn] != 0)
+                        {
+                            std::cout << "x:" << tmprow << ","
+                                      << "y:" << tmpcolumn << "  ";
+                        }
+                    }
+                }
+
+                std::cout<<std::endl;
+                return;
+            }
+
+            for (size_t column = 1; column <= colums; column++)
+            {
+                if (place_valid(row, column, chessbord))
+                {
+                    chessbord[row-1][column-1] = 1;
+                    brtarce(row + 1, rows, chessbord);
+                    chessbord[row-1][column-1] = 0;
+                }
+            }
+        }
+        static void queeQuestion(const size_t &n)
+        {
+            std::vector<std::vector<size_t>> chessbord{n, std::vector<size_t>(n, 0)};
+            brtarce(1, n, chessbord);
+        }
     };
 } // namespace Solutions

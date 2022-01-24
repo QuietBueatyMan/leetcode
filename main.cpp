@@ -33,8 +33,17 @@ int main()
     //     }
     //     std::cout << "]";
     // }
+    // std::cout << "," << std::endl;
+    // Solutions::Solution::ListNode *list1 = Solutions::Solution::createList({});
+    // Solutions::Solution::ListNode *list2 = Solutions::Solution::createList({0});
 
-    auto result = Solutions::Solution::isValid("[{()}");
+    // auto result = Solutions::Solution::generateParenthesis(3);
 
-    std::cout << result;
+    // for (auto &&i : result)
+    // {
+    //     std::cout << i << "   ";
+    // }
+
+    // std::cout << std::endl;
+    Solutions::Solution::queeQuestion(8);
 }
